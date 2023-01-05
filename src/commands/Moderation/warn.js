@@ -14,6 +14,7 @@ module.exports = {
         const memberUser = await Interaction.guild.members.cache.get(member.id);
         const bb = Interaction.guild.roles.cache.find(r => r.id === '952570074441584700'); //\ Fix to match RB Bot role after test
         const wr = Interaction.guild.roles.cache.find(r => r.id === '952633869612486666'); //\ Fix to match RB Clan member role after test
+        const warnChannel = await Interaction.guild.channels.cache.find(channel => channel.id === '1060376579672395836') //\ Fix to match RB warn channel role after test
 
         let reason = Interaction.options.getString('reason') || 'No reason given.'
 
@@ -54,10 +55,12 @@ module.exports = {
 
             await memberUser.roles.add(wr);
 
+            warnChannel.send({ embeds: [embed] })
+
         } else {
 
             return;
-            
+
         };
 
         Interaction.reply({ embeds: [embed] })
