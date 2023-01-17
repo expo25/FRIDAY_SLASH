@@ -25,6 +25,7 @@ module.exports = {
         const rr = Interaction.guild.roles.cache.find(r => r.id === '980916746363998209'); //\ Fix to match RB recruitment role after test
         const cr = Interaction.guild.roles.cache.find(r => r.id === '981276719849812028'); //\ Fix to match RB Clan member role after test
         const bb = Interaction.guild.roles.cache.find(r => r.id === '952570074441584700'); //\ Fix to match RB Bot role after test
+        const applicantRole = Interaction.guild.roles.cache.find(r => r.id === '980625735205138492');
         const userID = Interaction.guild.members.cache.get(user.id);
         const interactionUser = await Interaction.guild.members.fetch(Interaction.user.id);
         // const { options } = Interaction;
@@ -43,6 +44,7 @@ module.exports = {
         // if (oldNick === nickname.value) return Interaction.reply({ content: 'That user already has that nickname! Choose another one.' });
 
         await userID.roles.add(cr);
+        await userID.roles.remove(applicantRole);
         await userID.setNickname(userNickname);
 
         const embed = new MessageEmbed()
