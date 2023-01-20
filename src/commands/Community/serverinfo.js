@@ -24,7 +24,7 @@ module.exports = {
                 { name: `Server Owner`, value: `<@${Interaction.guild.ownerId}>`, inline: true },
                 { name: `Server ID`, value: Interaction.guild.id, inline: true },
                 { name: `Server Members`, value: `${users}`, inline: true },
-                { name: 'Server Bots', value: `${bots}`, inline: true},
+                { name: 'Server Bots', value: `${bots}`, inline: true },
                 { name: `Text Channels`, value: textChannelSize.toString(), inline: true },
                 { name: `Voice Channels`, value: voiceChannelSize.toString(), inline: true },
                 { name: `Categories`, value: categorySize.toString(), inline: true },
@@ -39,7 +39,7 @@ module.exports = {
             embed.addFields({ name: `News Channels`, value: newsChannelSize, inline: true });
         }
 
-        embed.addFields({ name: `Server icon URL`, value: Interaction.guild.iconURL({ dynamic: true }) });
+        embed.addFields({ name: `Server icon URL`, value: `[Click Here](${Interaction.guild.iconURL({ dynamic: true })})` });
 
         Interaction.reply({ embeds: [embed] });
 
