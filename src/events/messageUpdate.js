@@ -5,17 +5,27 @@ module.exports = {
     on: true,
     async execute(oldMessage, newMessage, Interaction, client) {
 
+        // Messages that contain links.
+
+        let regx = /^((?:https?:)?\/\/)?((?:www|m)\.)? ((?:discord\.gg|discordapp\.com))/g
+        let cdu = regx.test(newMessage.content.toLowerCase().replace(/\s+/g, ''))
+
         const auditLogs = await oldMessage.guild.channels.cache.find(channel => channel.name.includes("logs"));
         const messageHadAttachment = newMessage.attachments.first();
-        if (oldMessage === newMessage) return;
-        if (oldMessage.author.bot || newMessage.author.bot ) return;
-        //if (oldMessage.author.id && newMessage.author.id === '963589943593164880') return;
-        //if (oldMessage.author.id && newMessage.author.id === '824653933347209227') return;
-        //if (oldMessage.author.id && newMessage.author.id === '274613585609490442') return;
 
-        await oldMessage.guild.fetchAuditLogs({ type: 72, limit: 1 }).then(audit => {
-            const user = audit.entries.first().executor;
-            if (!auditLogs) return; {
+        // If the edited message contains the exact same text as the orginal, don't log anything to the channel. 
+        if (oldMessage === newMessage) return;
+        // If any bots edit embeds, don't log anything to the channel.
+        if (oldMessage.author.bot || newMessage.author.bot) return;
+        // If there is no log channel, don't log anything to the channel.
+        if (!auditLogs) return;
+
+        if (oldMessage.content.includes(regx) || newMessage.content.includes(cdu)) {
+            return;
+        } else {
+
+            await oldMessage.guild.fetchAuditLogs({ type: 72, limit: 1 }).then(audit => {
+                const user = audit.entries.first().executor;
                 const embed = new MessageEmbed()
                     .setAuthor({ name: `${oldMessage.author.tag}`, iconURL: `${oldMessage.author.displayAvatarURL({ dynamic: true, size: 512 })}` })
                     .setColor('#ff634a')
@@ -35,7 +45,8 @@ module.exports = {
                 return auditLogs.send({
                     embeds: [embed]
                 });
-            }
-        })
-    }
-}
+            },
+            );
+        };
+    },
+};
