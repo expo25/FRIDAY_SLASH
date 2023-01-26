@@ -5,10 +5,10 @@ module.exports = {
     on: true,
     async execute(oldMessage, newMessage, Interaction, client) {
 
-        // Messages that contain links.
+        // Messages that contain links (Not currently initialized, more of a plcaeholder).
 
         let regx = /^((?:https?:)?\/\/)?((?:www|m)\.)? ((?:discord\.gg|discordapp\.com))/g
-        let cdu = regx.test(newMessage.content.toLowerCase().replace(/\s+/g, ''))
+        let cdu = regx.test(oldMessage.content.toLowerCase().replace(/\s+/g, ''))
 
         const auditLogs = await oldMessage.guild.channels.cache.find(channel => channel.name.includes("logs"));
         const messageHadAttachment = newMessage.attachments.first();
@@ -20,7 +20,7 @@ module.exports = {
         // If there is no log channel, don't log anything to the channel.
         if (!auditLogs) return;
 
-        if (oldMessage.content.includes(regx) || newMessage.content.includes(cdu)) {
+        if (oldMessage.content.includes('discord.gg/' || 'discordapp.com/invite/' || 'https://') && newMessage.content.includes('discord.gg/' || 'discordapp.com/invite/' || 'https://link')) {
             return;
         } else {
 

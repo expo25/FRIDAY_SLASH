@@ -1,5 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, Message } = require('discord.js');
+const warningSchema = require('../../schemas.js/warnSchema');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -14,19 +15,48 @@ module.exports = {
         const memberUser = await Interaction.guild.members.cache.get(member.id);
         const bb = Interaction.guild.roles.cache.find(r => r.id === '952570074441584700'); //\ Fix to match your server's role id.
         const wr = Interaction.guild.roles.cache.find(r => r.id === '952633869612486666'); //\ Fix to match your server's role id.
-        const warnChannel = await Interaction.guild.channels.cache.find(channel => channel.id === '1060376579672395836') //\ Fix to match your server's channel id. 
+        const warnChannel = await Interaction.guild.channels.cache.find(channel => channel.id === '1060376579672395836') //\ Fix to match your server's channel id.
+        const userTag = member.username;
 
         let reason = Interaction.options.getString('reason') || 'No reason given.'
 
-        if (!Interaction.member.permissions.has("KICK_MEMBERS")) return Interaction.reply({ content: "You are unauthorized to execute that command. **Missing permissions | \`KICK_MEMBERS\`.**" });
+        if (!Interaction.member.permissions.has("KICK_MEMBERS")) return Interaction.reply({ content: "You are unauthorized to execute that command. **Missing permissions | \`KICK_MEMBERS\`.** Don't be a fool." });
         if (!Interaction.guild.me.permissions.has("KICK_MEMBERS")) return Interaction.reply({ content: "I do not have permission to use this command. You must give me the **\`KICK_MEMBERS\`.** permission." });
-        if (Interaction.member.id === member.id) return Interaction.reply({ content: "You can not give yourself a warning. Nice try." });
+        if (Interaction.member.id === member.id) return Interaction.reply({ content: "You can not give yourself a warning. Are you out of your mind?" });
         if (memberUser.roles.cache.has(bb.id)) return Interaction.reply({ content: 'You can not warn a bot. How would that even make sense?' });
-        if (memberUser.roles.cache.has(wr.id)) return Interaction.reply({ content: 'This user already has the \`WARNED\` role. I will not send them another message.' });
+        // if (memberUser.roles.cache.has(wr.id)) return Interaction.reply({ content: 'This user already has the \`WARNED\` role. I will not send them another message.' });
         if (memberUser.id === client.user.id) return Interaction.reply({ content: `You can not give me a warning. You don't want to know what happens if you do that.` });
         if (!memberUser.kickable) Interaction.reply({ content: `I can not warn that user. They may have higher perms than you or I.` });
         if (!memberUser) return Interaction.reply({ content: 'The user you mentioned is no longer in the server.' }); //Don't need with slash commands bc it won't show the user as an option if they aren't in the server.
         // if(!member.kickable) return Interaction.reply({ content: "I can not warn this user, I am permission restricted.", ephemeral: true });
+
+        warningSchema.findOne({ GuildID: Interaction.guild.id, UserID: member.id, UserTag: member.tag }, async (err, data) => {
+
+            if (err) throw err;
+
+            if (!data) {
+                data = new warningSchema({
+                    GuildID: Interaction.guild.id,
+                    UserID: member.id,
+                    UserTag: userTag,
+                    Content: [
+                        {
+                            ExecutorId: Interaction.user.id,
+                            ExecutorTag: Interaction.user.tag,
+                            Reason: reason
+                        }
+                    ],
+                });
+            } else {
+                const warnContent = {
+                    ExecutorId: Interaction.user.id,
+                    ExecutorTag: Interaction.user.tag,
+                    Reason: reason
+                }
+                data.Content.push(warnContent);
+            }
+            data.save();
+        });
 
         const dmEmbed = new MessageEmbed()
             .setDescription(`:x: You have been **warned** in ${Interaction.guild.name} | ${reason}`)
@@ -63,7 +93,7 @@ module.exports = {
 
         };
 
-        Interaction.reply({ embeds: [embed] })
+        Interaction.reply({ embeds: [embed], ephemeral: true })
         member.send({ embeds: [dmEmbed] }).catch(err => { console.log("This user has blocked the ability to receive DMs from this server. I am unable to send the message you specified.") })
     },
 };
