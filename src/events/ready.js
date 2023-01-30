@@ -25,13 +25,12 @@ module.exports = {
             await client.user.setPresence({
                 activities: [
                     {
-                        name: ('Your IP Address'),//statusArray[option].content,
-                        type: 'WATCHING'//statusArray[option].type,
+                        name: ('/help'),//statusArray[option].content,
+                        type: 'LISTENING'//statusArray[option].type,
 
                     },
-
                 ],
-
+                status: 'online'
                 //status: statusArray[option].status
             })
         } catch (error) {
