@@ -113,8 +113,8 @@ module.exports = {
             .setColor('DARK_RED')
             .setDescription(`**${user} - Server Roles:**`)
             .addFields({ name: '\u200b', value: `${member.roles.cache.map(r => r).join(' ').replace("@everyone", " ")}` })
-            .setFooter({ text: `User ID: ${user.id}`, iconURL: `${user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            .setTimestamp()
+            .setFooter({ text: `Total Roles: ${member.roles.cache.size.toString() - 1}`, iconURL: `${user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+            // .setTimestamp()
 
         await Interaction.reply({ embeds: [profileEmbed], components: [roleButton] });
 
