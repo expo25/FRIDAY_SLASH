@@ -1,6 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { MessageEmbed, Message } = require('discord.js');
-const { i } = require('mathjs');
 const warningSchema = require('../../schemas.js/warnSchema');
 
 module.exports = {
