@@ -34,13 +34,8 @@ module.exports = {
             .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.avatarURL({ dynamic: true, size: 512 })}` })
             .setTimestamp()
 
-        await kickMember.send({ embeds: [DMembed] }).catch(err => (Interaction.channel.send({ content: 'I am unable to send this user a Direct Message.', ephemeral: true })))
-
-        await kickMember.kick({ reason: reason }).catch(err => (Interaction.channel.send({ content: 'There was an error while attempting to kick this user.', ephemeral: true })))
-
-        await Interaction.reply({ embeds: [embed] })
-
-
+        await Interaction.reply({ embeds: [embed] }).then(kickMember.send({ embeds: [DMembed] }).catch(err => (Interaction.reply({ content: 'I am unable to send this user a Direct Message.', ephemeral: true })))).then(
+            kickMember.kick({ reason: reason }).catch(err => (Interaction.reply({ content: 'There was an error while attempting to kick this user.', ephemeral: true })))
+        )
     }
-
 }
