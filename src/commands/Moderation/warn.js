@@ -144,7 +144,9 @@ module.exports = {
 
                 } else if (data.Content.length == '3') {
                     await Interaction.reply({ embeds: [embed3], ephemeral: true }).then(
-                        memberUser.kick()).then(warnChannel.send({ embeds: [embed3] }));
+                        member.send({ embeds: [embed3] }).then(
+                            memberUser.kick()).then(
+                                warnChannel.send({ embeds: [embed3] })));
                 }
             });
 

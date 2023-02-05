@@ -1,0 +1,198 @@
+const { SlashCommandBuilder } = require('@discordjs/builders');
+const { MessageEmbed, MessageButton, MessageActionRow, Permissions } = require('discord.js');
+const moment = require('moment');
+const axios = require("axios");
+// const { ChannelTypes } = require('discord.js/typings/enums');
+
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('get')
+        .setDescription('For Devs - Get quilck info on server role, channel, emote, or user ids.')
+        .addSubcommand((subcommand =>
+            subcommand
+                .setName('role')
+                .setDescription('Role info')
+                .addRoleOption(option =>
+                    option
+                        .setName('role')
+                        .setDescription('The role you would like to fetch.')
+                        .setRequired(true),)))
+        .addSubcommand((subcommand =>
+            subcommand
+                .setName('channel')
+                .setDescription('Channel info')
+                .addChannelOption(option =>
+                    option
+                        .setName('channel')
+                        .setDescription('The channel you would like to fetch.')
+                        // .addChannelTypes(ChannelTypes.GUILD_TEXT) // Ensure the user can only select a TextChannel for output
+                        .setRequired(true),)))
+        .addSubcommand((subcommand =>
+            subcommand
+                .setName('emoji')
+                .setDescription('Emote info')
+                .addMentionableOption(option =>
+                    option
+                        .setName('emoji')
+                        .setDescription('The emoji you would like to fetch.'
+                        ).setRequired(true),)))
+        .addSubcommand((subcommand =>
+            subcommand
+                .setName('user')
+                .setDescription('User info')
+                .addUserOption(option =>
+                    option
+                        .setName('user')
+                        .setDescription('The user you would like to fetch.')
+                        .setRequired(true),))),
+
+    async execute(Interaction, client) {
+
+        //role identifiers
+
+        const role = Interaction.options.getRole('role');
+        const roleID = role.id;
+
+        //emoji identifiers
+
+        //user identifiers
+
+        const user = Interaction.options.getUser('user');
+        const userID = Interaction.user.id;
+
+        //other identifiers
+
+        const date = new Date(Interaction.createdTimestamp).toLocaleDateString();
+        const sub = Interaction.options.getSubcommand(["role", "channel", "emoji", "user"]);
+        const perms = new Permissions(role.permissions.bitfield).toArray();
+        const roleConcat = '<' + '@' + '&' + role.id + '>' + ' ';
+
+        //embeds for /get-role.
+
+        const roleEmbed = new MessageEmbed()
+            .setColor(role.color)
+            .setTitle('Role Info')
+            // .setDescription(`> ${role} Info`)
+            .addFields(
+                { name: 'Name', value: `${role.name}`, inline: true },
+                { name: 'Hex Color', value: `${role.hexColor}`, inline: true },
+                { name: 'Created On', value: `\`${moment(role.createdAt).format('MMMM Do YYYY, h:mm:ss a')}\``, inline: true },
+                { name: 'Position in Server', value: `${role.osition}`, inline: true },
+                { name: 'Mentionable?', value: role.mentionable ? '<:Square_GreenButton:1070897822586646538>' : '<:Square_RedButton:1070897947748880404>', inline: true },
+                { name: 'Displayed Seperately?', value: role.hoist ? '<:Square_GreenButton:1070897822586646538>' : '<:Square_RedButton:1070897947748880404>', inline: true },)
+            // .setThumbnail(':role_OfficialPRbot:')
+            .setFooter({ text: `Role ID: ${role.id}`, iconURL: `${Interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+
+        const userEmbed = new MessageEmbed()
+            .setColor(role.color)
+            // .setAuthor({ name: role.name, iconURL: Interaction.guild.iconURL({ dynamic: true }) })
+            .setTitle(`Role Users`)
+            .setDescription(`${role.members.map(m => m).join(' | ')}`)
+            .setFooter({ text: `Total Users: ${role.members.size.toString()}`, iconURL: `${Interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+
+        const permEmbed = new MessageEmbed()
+            .setColor(role.color)
+            .setTitle('Role Permissions')
+            .setDescription(`${perms.join(', ')}`)
+            .setFooter({ text: `Total Permissions: ${perms.length}`, iconURL: `${Interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+
+        const roleEmbedEnd = new MessageEmbed()
+            .setColor(role.color)
+            .setTitle('Module ended.')
+            .setFooter({ text: 'Please use the command again.', iconURL: client.user.displayAvatarURL() })
+
+        //\\ buttons for /get-role.
+
+        const roleButton = new MessageActionRow()
+            .addComponents([
+                new MessageButton()
+                    .setCustomId("home")
+                    .setStyle("SUCCESS")
+                    .setLabel("Role Info")
+                    .setEmoji('<a:GreenTick:984501363436294164>'),
+
+                new MessageButton()
+                    .setCustomId('users')
+                    .setStyle('PRIMARY')
+                    .setLabel('Users')
+                    .setEmoji('<a:arrow:1000482373386899557>'),
+
+                new MessageButton()
+                    .setCustomId('perms')
+                    .setStyle('SECONDARY')
+                    .setLabel('Permissions')
+                    .setEmoji('<a:stars:862359989926625302>'),
+            ]);
+
+        const d_roleButton = new MessageActionRow()
+            .addComponents([
+                new MessageButton()
+                    .setCustomId("home")
+                    .setStyle("SUCCESS")
+                    .setLabel("Role Info")
+                    .setEmoji('<a:GreenTick:984501363436294164>')
+                    .setDisabled(true),
+
+                new MessageButton()
+                    .setCustomId('role')
+                    .setStyle('PRIMARY')
+                    .setLabel('Users')
+                    .setEmoji('<a:arrow:1000482373386899557>')
+                    .setDisabled(true),
+
+                new MessageButton()
+                    .setCustomId('perms')
+                    .setStyle('SECONDARY')
+                    .setLabel('Permissions')
+                    .setEmoji('<a:stars:862359989926625302>')
+                    .setDisabled(true),
+            ]);
+
+        if (sub === "role") {
+
+            await Interaction.reply({ embeds: [roleEmbed], components: [roleButton] });
+
+            const filter = i => i.user.id === Interaction.user.id;
+
+            const collector = await Interaction.channel.createMessageComponentCollector({ filter: filter, time: 1000 * 200 });
+
+            collector.on('collect', async (i) => {
+
+                if (i.customId === 'users') {
+                    await i.deferUpdate().catch(e => { })
+                    i.editReply({ embeds: [userEmbed] })
+                } else if (i.customId === 'perms') {
+                    await i.deferUpdate().catch(e => { })
+                    i.editReply({ embeds: [permEmbed] })
+                } else if (i.customId === 'home') {
+                    await i.deferUpdate().catch(e => { })
+                    i.editReply({ embeds: [roleEmbed] })
+                }
+            });
+
+            collector.on('end', () => {
+                Interaction.editReply({ embeds: [roleEmbedEnd], components: [d_roleButton] })
+            })
+
+        } else if (sub === "channel") {
+
+            const channel = Interaction.options.getChannel('channel')
+
+            //\\ embed for /get-channel
+
+            const channelEmbed = new MessageEmbed()
+                .setColor('ff634a')
+                .setTitle('<:sendmessagetochannel:1014731635771584543> CHANNEL INFO')
+                .addFields(
+                    { name: 'Name', value: `${channel.name}`, inline: true },
+                    { name: 'Type', value: `${channel.type}`, inline: true },
+                    { name: 'ID', value: `${channel.id}`, inline: true },
+                    { name: 'Created On', value: `${channel.createdTimestamp()}` },
+                    { name: 'Flags', value: `${channel.flags}` }
+                )
+                .setFooter({ text: `Channel ID: ${channel.id}`, iconURL: `${Interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
+
+            await Interaction.reply({ embeds: [channelEmbed] });
+        };
+    },
+};
