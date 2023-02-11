@@ -55,7 +55,7 @@ module.exports = {
         const profileEmbed = new MessageEmbed()
             // .setAuthor({ name: `${user.username}`, iconURL: `${user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setThumbnail(`${user.avatarURL({ dynamic: true, size: 512 })}`)
-            .setColor('GREEN')
+            .setColor('ff634a')
             .setTitle(`<a:arrow:1000482373386899557> **${user.username}'s PROFILE:**`)
             // .setDescription(`[User Avatar Link](${user.displayAvatarURL({ dynamic: true, size: 512 })})`)
             .addFields(
