@@ -112,9 +112,15 @@ module.exports = {
             .setAuthor({ name: `${user.username}`, iconURL: `${user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setColor('DARK_RED')
             .setDescription(`**${user} - Server Roles:**`)
-            .addFields({ name: '\u200b', value: `${member.roles.cache.map(r => r).join(' ').replace("@everyone", " ")}` })
+            .addFields({
+                name: '\u200b', value: `${member.roles.cache.sorted((x, y) => {
+                    return y.option - x.option;
+                }).map((role) => {
+                    return `${role} - ${role.id}`
+                }).join(`\n`).replace((Interaction.guild.roles.everyone.id, " ")).replace("@everyone - ", " ")}`
+            })
             .setFooter({ text: `Total Roles: ${member.roles.cache.size.toString() - 1}`, iconURL: `${user.displayAvatarURL({ dynamic: true, size: 512 })}` })
-            // .setTimestamp()
+        // .setTimestamp()
 
         await Interaction.reply({ embeds: [profileEmbed], components: [roleButton] });
 
