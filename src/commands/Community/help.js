@@ -88,13 +88,13 @@ module.exports = {
                 { name: '</inspire:1008522913227477072>', value: 'Provides a randomly generated inspirational quote to the channel.' },
                 { name: '</invite:1019636614194004060>', value: 'Generate a link to invite the bot to your server (Admins).' },
                 { name: '</logo:1008538849632325702>', value: `Provides the guild's (server) iconURL.` },
-                { name: '</member-count:1008542097978175549>', value: 'Provides a quick server member count (All members + bots).' },
+                { name: '</membercount:1008542097978175549>', value: 'Provides a quick server member count (All members + bots).' },
                 { name: '</meme:1009143979708788807>', value: `Provides a randomly generated meme from a set array (BE WARNED: Not for the easily-offended).` },
                 { name: '</remind:1016539268849614938>', value: `Have the bot DM you a custom reminder (Time formats must be in: 30s, 2h, 2d).` },
                 { name: '</profile:1066015278879740044>', value: 'Provides detailed information on a user within the server.' },
                 { name: '</server-stats:1016488031890460672>', value: 'Provides detailed server information.' },
                 { name: '</suggest:1010270842321633290>', value: 'Provides a suggestion in the form of an embed to the server suggestion channel (Channel must have the word \`Suggest\` in it in order to be sent)' },
-                { name: '</role-check:1009949032048758834>', value: `Check if a server member has a certain role (Useful in large guilds).\nUsage: /role-check <member> <role>` })
+                { name: '</role-check:1009949032048758834>', value: `Check if a server member has a certain role (Useful in large guilds).` })
             //{ name: '**/navigation**', value: 'Provides a paginated embed containing server information, channels, categories, roles & links for different guilds.\nUsage: /navigation <server name>' },
             .setFooter({ text: `Requested by ${Interaction.user.username}`, iconURL: `${Interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTimestamp()
