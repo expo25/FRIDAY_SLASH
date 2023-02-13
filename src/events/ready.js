@@ -26,7 +26,7 @@ module.exports = {
                 activities: [
                     {
                         name: ('/help'),//statusArray[option].content,
-                        type: 'LISTENING'//statusArray[option].type,
+                        type: 'LISTENING' //statusArray[option].type,
 
                     },
                 ],
