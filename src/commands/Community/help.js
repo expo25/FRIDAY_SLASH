@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, Message, MessageActionRow, MessageButton } = require('discord.js');
+const { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -7,6 +7,18 @@ module.exports = {
         .setDescription(`F.R.I.D.A.Y Help Menu`),
 
     async execute(Interaction, client) {
+
+        /***********************************************************************************************************************************************************\ 
+        | The following code can be used to use fs's readdirSync function to search for the command data (Name & Descriptions) in the source folder of your project |  
+        | This might work better than manually listing out all the comamands your bot has, unless you want custom descriptions like I have.                         |
+        \***********************************************************************************************************************************************************/
+
+        // let str
+        // const commandFiles = fs.readdirSync(`${path}/${folder}`).filter(file => file.endsWith('.js'));
+        // for (const file of commandFiles) {
+        //     const command = require(`../commands/${folder}/${file}`);
+        //     str += `Name: ${command.data.name}, Description: ${command.data.description} \n`;
+        // }
 
         let homeembed = new MessageEmbed()
             .setColor('#ff634a')
@@ -20,12 +32,14 @@ module.exports = {
             new MessageButton().setCustomId("home").setStyle("SUCCESS").setLabel("Home").setEmoji('<a:GreenTick:984501363436294164>'),
             new MessageButton().setCustomId("admin").setStyle("DANGER").setLabel("Admin | Mod Commands").setEmoji('🔐'),
             new MessageButton().setCustomId("command").setStyle("PRIMARY").setLabel("Full Command List").setEmoji('<a:vr_a_arrowright4:984836830312677377>'),
+            new MessageButton().setCustomId("rt").setStyle("SECONDARY").setLabel("RT Custom Server Commands").setEmoji('🐯'),
             new MessageButton().setCustomId("links").setStyle("PRIMARY").setLabel("Useful Links").setEmoji('<a:arrow:1000482373386899557>')
         ]);
         let d_iraw = new MessageActionRow().addComponents([
             new MessageButton().setCustomId("d_home").setStyle("SUCCESS").setLabel("Home").setEmoji('<a:GreenTick:984501363436294164>').setDisabled(true),
             new MessageButton().setCustomId("d_admin").setStyle("DANGER").setLabel("Admin | Mod Commands").setEmoji('🔐').setDisabled(true),
             new MessageButton().setCustomId("d_command").setStyle("PRIMARY").setLabel("Full Command List").setEmoji('<a:vr_a_arrowright4:984836830312677377>').setDisabled(true),
+            new MessageButton().setCustomId("rt").setStyle("SECONDARY").setLabel("RT Custom Server Commands").setEmoji('🐯').setDisabled(true),
             new MessageButton().setCustomId("d_links").setStyle("PRIMARY").setLabel("Useful Links").setEmoji('<a:arrow:1000482373386899557>').setDisabled(true)
         ]);
 
@@ -36,20 +50,23 @@ module.exports = {
             .addFields(
                 //{name: '\u200b', value: '\u200b'},
                 { name: '**COMMANDS**', value: '⇘' },
-                { name: '**/audit-logs**', value: `Provides detailed information about F.R.I.D.A.Y's audit logging feature.\nUsage: /audit-logs` },
-                { name: '**/clear**', value: `Clear a specified amount of messages from a channel. (Can't be over 14 days old).\nUsage: /clear <Amt of messages> <user>` },
-                { name: '**/role-add**', value: 'Add a role to a server member.\nUsage: /role-add <member> <role>' },
-                { name: '**/role-remove**', value: 'Removes a role from a server member.\nUsage: /role-remove <member> <role>' },
-                { name: '**/roles-setup**', value: `**NOTE:** This command is under maintanence and will not work correctly if you use it. Setup the server's reaction role system using a drop-down menu where users can select their roles (**Allows up to 23 roles)**.\nUsage: /roles-setup <@role1> <@role2> <@role3> <\`finish\`>` },
-                { name: '**/warn**', value: 'Warns a server member by sending them a custom DM.\nUsage: /warn <member> <Type reason you warned them>' },
-                { name: '**/ban**', value: 'Bans a user from the server.\nUsage: /ban <member> <Type reason you banned them>' },
-                { name: '**/kick**', value: 'Kicks a user from the server.\nUsage: /kick <member>' },
-                { name: '**/lock**', value: 'Locks a channel preventing @everyone from sending messages.\nUsage: /lock <Type reason you locked the channel>' },
-                { name: '**/slow-mode**', value: 'Enables slowmode in a specified channel.\nUsage: /slowmode <channel name> <slowmode duration time> NOTE: Select the first option \`OFF\` to turn off slowmode in a specified channel.' },
-                { name: '**/mute**', value: `Gives a server member the 'Muted' role (If it exists). Also sends custom DM to the user letting them know they were muted.\nUsage: /mute <member> <Type reason you muted them>` },
-                { name: '**/nickname**', value: `Changes the nickname of a server member (Must have MANAGE_NICKNAMES permission)\nUsage: /nickname <user> <Type the nickname you want to change to>` },
-                { name: '**/delete-channel**', value: `Deletes a channel from the guild.\nUsage: /delete-channel <channel1> <channel2> (MUST delete at least 1; can delete 2)` },
-                { name: '**/create-channel**', value: `Creates a channel in the guild. NOTE: You will see the new channel at the very top of the server. Currently working on a way to select which category it can go in.\nUsage: /create-channel <channel name> (MUST create at least 1; can create 2)` }
+                { name: '</role-add:1009941339145785484>', value: 'Add a role to a server member.' },
+                { name: '</role-remove:1009943055320760392>', value: 'Removes a role from a server member.' },
+                { name: '</roles-setup:1009161816414359603>', value: `**NOTE:** This command is under maintanence and will not work correctly if you use it. Setup the server's reaction role system using a drop-down menu where users can select their roles (**Allows up to 23 roles)**.` },
+                { name: '</clear:1008196735115477013>', value: `Clear a specified amount of messages from a channel. (Can't be over 14 days old).` },
+                { name: '</delete-channel:1012204627644653588>', value: `Deletes a channel from the guild. (MUST delete at least 1; can delete 2)` },
+                { name: '</create-channel:1014374267141496912>', value: `Creates a channel in the guild. **NOTE:** You will see the new channel at the very top of the server. Currently working on a way to select which category it can go in. (MUST create at least 1; can create 2)` },
+                { name: '</kick:1008526492214493314>', value: 'Kicks a user from the server.' },
+                { name: '</ban:1008179159585013911>', value: 'Bans a user from the server.' },
+                { name: '</lock:1008535350467113030>', value: 'Locks a channel preventing @everyone from sending messages.' },
+                { name: '</mute:1008545900492238888>', value: `Gives a server member the 'Muted' role (If it exists). Also sends custom DM to the user letting them know they were muted.` },
+                { name: '</say:1010276796878565447>', value: 'Send a secret message to a specified channel. Hee-hee...' },
+                { name: '</slow-mode:1009960044919541830>', value: 'Enables slowmode in a specified channel. **NOTE:** Select the first option \`OFF\` to turn *OFF* slowmode in a specified channel.' },
+                { name: '</nickname:1008499044609446072>', value: `Changes the nickname of a server member (Must have \`MANAGE_NICKNAMES\` permission).` },
+                { name: '</warn add:1010287654732042255>', value: 'Warns a server member by sending them a custom DM.' }, // Decide on moving to the custom embed \\
+                { name: '</warn check:1010287654732042255>', value: 'Check how many times a user has been warned.' }, // Decide on moving to the custom embed \\
+                { name: '</warn clear:1010287654732042255>', value: 'Clear the warnings of a specified user.' }, // Decide on moving to the custom embed \\
+                { name: '</warn remove:1010287654732042255>', value: 'Remove a warning from a server member.' }, // Decide on moving to the custom embed \\
             )
             .setFooter({ text: `Requested by ${Interaction.user.username}`, iconURL: `${Interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTimestamp()
@@ -60,24 +77,39 @@ module.exports = {
             .setDescription('This list provides all commands @everyone has permission to use.')
             .addFields(
                 { name: '**COMMANDS**', value: '⇘' },
-                { name: '**/help**', value: `Provides F.R.I.D.A.Y's Help menu.\nUsage: /help` },
-                { name: '**/invite**', value: 'Generate a link to invite the bot to your server (Admins).\nUsage: /invite' },
-                { name: '**/bot-stats**', value: `Provides some technical background on F.R.I.D.A.Y (Uptime, Development Tools, System).\nUsage: /bot-stats` },
-                { name: '**/remind**', value: `Have the bot DM you a custom reminder.\nUsage: /remind <time to be reminded in (i.e 30s, 2h, 2d)> <reminder>` },
-                //{ name: '**/ba**', value: 'Provides the in-game link Black Artillery.\nUsage: /ba' },
-                { name: '**/calculator**', value: `Provides F.R.I.D.A.Y's standard built-in calculator.\nUsage: /calculator` },
-                { name: '**/role-check**', value: `Check if a server member has a certain role (Useful in large guilds).\nUsage: /role-check <member> <role>` },
-                { name: '**/inspire**', value: 'Provides a randomly generated inspirational quote to the channel.\nUsage: /inspire' },
-                { name: '**/member-count**', value: 'Provides a quick server member count (All members + bots).\nUsage: /member-count' },
-                //{ name: '**/navigation**', value: 'Provides a paginated embed containing server information, channels, categories, roles & links for different guilds.\nUsage: /navigation <server name>' },
-                { name: '**/logo**', value: `Provides the guild's (server) iconURL.\nUsage: /logo` },
-                { name: '**/server-stats**', value: 'Provides detailed server information.\nUsage: /server-info' },
-                { name: '**/profile**', value: 'Provides detailed information on a user within the server.\nUsage: /profile <member>' },
-                { name: '**/suggest**', value: 'Provides a suggestion in the form of an embed to the server suggestion channel (Channel must have the word \`Suggest\` in it in order to be sent).\nUsage: /suggest <Type your suggestion>' },
-                { name: '**/meme**', value: `Provides a randomly generated meme from a set array (BE WARNED: Not for the easily-offended).\nUsage: /meme` }
-            )
+                { name: '</audit-logs:1011060610483634276>', value: `Provides detailed information about F.R.I.D.A.Y's audit logging feature.` },
+                { name: '</bot-stats:1012192270088421386>', value: `Provides some technical background on F.R.I.D.A.Y (Uptime, Development Tools, System)` },
+                { name: '</calculator:1009874007711031446>', value: `Provides F.R.I.D.A.Y's standard built-in calculator.` },
+                { name: '</help:1010322933052342394>', value: `Provides F.R.I.D.A.Y's interactive 'Help' menu.` },
+                { name: '</get all-roles:1074114609360937032>', value: 'Returns all server roles & their ids.' },
+                { name: '</get channel:1074114609360937032>', value: 'Returns info on a channel within the server.' },
+                { name: '</get role:1074114609360937032>', value: 'Returns info on a role within the server.' },
+                { name: '</get user:1074114609360937032>', value: 'Returns info on a user within the server' },
+                { name: '</inspire:1008522913227477072>', value: 'Provides a randomly generated inspirational quote to the channel.' },
+                { name: '</invite:1019636614194004060>', value: 'Generate a link to invite the bot to your server (Admins).' },
+                { name: '</logo:1008538849632325702>', value: `Provides the guild's (server) iconURL.` },
+                { name: '</member-count:1008542097978175549>', value: 'Provides a quick server member count (All members + bots).' },
+                { name: '</meme:1009143979708788807>', value: `Provides a randomly generated meme from a set array (BE WARNED: Not for the easily-offended).` },
+                { name: '</remind:1016539268849614938>', value: `Have the bot DM you a custom reminder (Time formats must be in: 30s, 2h, 2d).` },
+                { name: '</profile:1066015278879740044>', value: 'Provides detailed information on a user within the server.' },
+                { name: '</server-stats:1016488031890460672>', value: 'Provides detailed server information.' },
+                { name: '</suggest:1010270842321633290>', value: 'Provides a suggestion in the form of an embed to the server suggestion channel (Channel must have the word \`Suggest\` in it in order to be sent)' },
+                { name: '</role-check:1009949032048758834>', value: `Check if a server member has a certain role (Useful in large guilds).\nUsage: /role-check <member> <role>` })
+            //{ name: '**/navigation**', value: 'Provides a paginated embed containing server information, channels, categories, roles & links for different guilds.\nUsage: /navigation <server name>' },
             .setFooter({ text: `Requested by ${Interaction.user.username}`, iconURL: `${Interaction.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
             .setTimestamp()
+
+        let customEmbed = new MessageEmbed()
+            .setColor('GREYPLE')
+            .setTitle('Royal Tiger Custom Server Commands')
+            .setDescription('This list provides all commands native to the \`Royal Tiger\` Discord Server.')
+            .addFields(
+                { name: '</ba:1008183326571499630>', value: 'Provides Black Artillery™ clan tag & link' },
+                { name: '</rt:1064685287030145054>', value: 'Prvides Royal Tiger™ clan tag & link' },
+                { name: '</recruit-msg:1053772428121227264>', value: 'Sends a user a custom message to the channel, welcoming them, giving them a member role, and changing their nickname. **NOTE:** Must have the <@&980916746363998209> role to use.' },
+                { name: '</rb1:1040451184386920478>', value: 'Sends a custom embed to a specified channel (See <#1040461074715127869>) **NOTE:** Must be a server admin to use if this integration is not disabled within the guild.' },
+                { name: '</rb2:1040451184386920479>', value: 'Sends a custom embed to a specified channel (See <#1040461074715127869>) **NOTE:** Must be a server admin to use if this integration is not disabled within the guild.' },
+                { name: '</rb3:1040454611733061782>', value: 'Sends a custom embed to a specified channel (See <#1040461074715127869>) **NOTE:** Must be a server admin to use if this integration is not disabled within the guild.' })
 
         let otherembed = new MessageEmbed()
             .setColor('BLUE')
@@ -111,6 +143,9 @@ module.exports = {
             } else if (i.customId === "links") {
                 await i.deferUpdate().catch(e => { })
                 i.editReply({ embeds: [otherembed] })
+            } else if (i.customId === "rt") {
+                await i.deferUpdate().catch(e => { })
+                i.editReply({ embeds: [customEmbed] })
             } else if (i.customId === "home") {
                 await i.deferUpdate().catch(e => { })
                 i.editReply({ embeds: [homeembed] })

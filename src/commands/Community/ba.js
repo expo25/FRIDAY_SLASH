@@ -14,7 +14,7 @@ module.exports = {
             .setColor('#ff634a')
             //.setThumbnail('https://cdn.discordapp.com/attachments/960951293436919828/1004863547240628325/BLACK-ARTILIRY-LOGO-ICON.png')
             //.setTimestamp()
-            .setFooter({ text: 'Click the link to navigate to the clan in-game.', iconURL: 'https://cdn.discordapp.com/attachments/960951293436919828/1004863547240628325/BLACK-ARTILIRY-LOGO-ICON.png' });
+            .setFooter({ text: 'Click the link to navigate to the clan in-game.', iconURL: Interaction.guild.iconURL() });
 
        await Interaction.reply({ embeds: [newEmbed]})
 }
