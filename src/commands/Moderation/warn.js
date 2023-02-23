@@ -161,7 +161,7 @@ module.exports = {
                             .setDescription(`${data.Content.map(
                                 (w, i) => `**Warning Number**: ${i + 1}\n**Warned By**: ${w.ExecutorTag}\n**Date**: ${w.Date}\n**Reason**: ${reason}\n`
                             ).join(" ")}`)
-                            .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.avatarURL({ dynamic: true, size: 512 })}` })
+                            .setFooter({ text: `${member.username}`, iconURL: `${member.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setTimestamp()]
                     });
                 } else {
@@ -169,7 +169,7 @@ module.exports = {
                         embeds: [new MessageEmbed()
                             .setTitle('<a:tlwHeartPoof:1068591805597225020> User Has No Warnings')
                             .setColor('BLURPLE')
-                            .setDescription(`${member} has been behaving themselves! They currently have no warnings.`).setFooter({ text: `${client.user.username}`, iconURL: `${client.user.avatarURL({ dynamic: true, size: 512 })}` })
+                            .setDescription(`${member} has been behaving themselves! They currently have no warnings.`).setFooter({ text: `${member.username}`, iconURL: `${member.displayAvatarURL({ dynamic: true, size: 512 })}` })
                             .setTimestamp()]
                     });
                 }

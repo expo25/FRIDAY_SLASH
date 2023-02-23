@@ -32,14 +32,14 @@ module.exports = {
             new MessageButton().setCustomId("home").setStyle("SUCCESS").setLabel("Home").setEmoji('<a:GreenTick:984501363436294164>'),
             new MessageButton().setCustomId("admin").setStyle("DANGER").setLabel("Admin | Mod Commands").setEmoji('🔐'),
             new MessageButton().setCustomId("command").setStyle("PRIMARY").setLabel("Full Command List").setEmoji('<a:vr_a_arrowright4:984836830312677377>'),
-            new MessageButton().setCustomId("rt").setStyle("SECONDARY").setLabel("RT Custom Server Commands").setEmoji('🐯'),
+            new MessageButton().setCustomId("rt").setStyle("SECONDARY").setLabel("RT Custom Server Commands").setEmoji('<a:Fire:984837033086312478>'),
             new MessageButton().setCustomId("links").setStyle("PRIMARY").setLabel("Useful Links").setEmoji('<a:arrow:1000482373386899557>')
         ]);
         let d_iraw = new MessageActionRow().addComponents([
             new MessageButton().setCustomId("d_home").setStyle("SUCCESS").setLabel("Home").setEmoji('<a:GreenTick:984501363436294164>').setDisabled(true),
             new MessageButton().setCustomId("d_admin").setStyle("DANGER").setLabel("Admin | Mod Commands").setEmoji('🔐').setDisabled(true),
             new MessageButton().setCustomId("d_command").setStyle("PRIMARY").setLabel("Full Command List").setEmoji('<a:vr_a_arrowright4:984836830312677377>').setDisabled(true),
-            new MessageButton().setCustomId("rt").setStyle("SECONDARY").setLabel("RT Custom Server Commands").setEmoji('🐯').setDisabled(true),
+            new MessageButton().setCustomId("rt").setStyle("SECONDARY").setLabel("RT Custom Server Commands").setEmoji('<a:Fire:984837033086312478>').setDisabled(true),
             new MessageButton().setCustomId("d_links").setStyle("PRIMARY").setLabel("Useful Links").setEmoji('<a:arrow:1000482373386899557>').setDisabled(true)
         ]);
 
@@ -50,6 +50,7 @@ module.exports = {
             .addFields(
                 //{name: '\u200b', value: '\u200b'},
                 { name: '**COMMANDS**', value: '⇘' },
+                { name: '</reload:1070512957412364379>', value: 'Owner-only command.' },
                 { name: '</role-add:1009941339145785484>', value: 'Add a role to a server member.' },
                 { name: '</role-remove:1009943055320760392>', value: 'Removes a role from a server member.' },
                 { name: '</roles-setup:1009161816414359603>', value: `**NOTE:** This command is under maintanence and will not work correctly if you use it. Setup the server's reaction role system using a drop-down menu where users can select their roles (**Allows up to 23 roles)**.` },
