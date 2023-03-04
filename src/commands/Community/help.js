@@ -81,6 +81,7 @@ module.exports = {
                 { name: '</audit-logs:1011060610483634276>', value: `Provides detailed information about F.R.I.D.A.Y's audit logging feature.` },
                 { name: '</bot-stats:1012192270088421386>', value: `Provides some technical background on F.R.I.D.A.Y (Uptime, Development Tools, System)` },
                 { name: '</calculator:1009874007711031446>', value: `Provides F.R.I.D.A.Y's standard built-in calculator.` },
+                { name: '</chat:1081681821751857162', value: 'Generates a detailed response from an asked question (Communicates with the OpenAI API)' },
                 { name: '</help:1010322933052342394>', value: `Provides F.R.I.D.A.Y's interactive 'Help' menu.` },
                 { name: '</get all-roles:1074114609360937032>', value: 'Returns all server roles & their ids.' },
                 { name: '</get channel:1074114609360937032>', value: 'Returns info on a channel within the server.' },
