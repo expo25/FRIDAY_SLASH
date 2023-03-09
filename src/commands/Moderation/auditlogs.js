@@ -250,7 +250,7 @@ module.exports = {
         await Interaction.reply({
             components: [select_menu_raw],
             embeds: [homeEmbed],
-            ephemeral: true
+            // ephemeral: true
         });
 
         const filter = i => i.user.id === Interaction.user.id
