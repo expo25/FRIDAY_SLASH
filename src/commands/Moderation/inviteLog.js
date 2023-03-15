@@ -31,14 +31,14 @@ module.exports = {
 
         const sub = options.getSubcommand();
 
-        const Data = await inviteSchema.findOne({ Guild: Interaction.guild.id});
+        const Data = await inviteSchema.findOne({ Guild: Interaction.guild.id });
 
         switch (sub) {
             case 'setup':
 
                 const channel = options.getChannel('channel');
 
-                if (Data) return await Interaction.reply({ content: 'The invite logging system has already been enabled.' })
+                if (Data) return await Interaction.reply({ content: 'The invite logging system has already been enabled, you moron.' })
                 else {
                     await inviteSchema.create({
                         Guild: Interaction.guild.id,
@@ -48,7 +48,8 @@ module.exports = {
                     const embed = new MessageEmbed()
                         .setColor('GREEN')
                         .setDescription(`<a:GreenTick:984501363436294164> Invite Logging System enabled in ${channel}`)
-                        .setImage(Interaction.guild.iconURL({ dynamic: true, size: 512 }))
+                        // .setImage(Interaction.guild.iconURL({ dynamic: true, size: 512 }))
+                        .setThumbnail(Interaction.guild.iconURL({ dynamic: true, size: 512 }))
                         .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.avatarURL({ dynamic: true, size: 512 })}` })
                         .setTimestamp()
 
@@ -65,8 +66,9 @@ module.exports = {
 
                     const deleteEmbed = new MessageEmbed()
                         .setColor('DARK_RED')
-                        .setDescription('<a:X_:1009946137068851211> Invite Logging System disabled')
-                        .setImage(Interaction.guild.iconURL({ dynamic: true, size: 512 }))
+                        .setDescription('<a:X_:1009946137068851211> Invite Logging System disabled.')
+                        // .setImage(Interaction.guild.iconURL({ dynamic: true, size: 512 }))
+                        .setThumbnail(Interaction.guild.iconURL({ dynamic: true, size: 512 }))
                         .setFooter({ text: `${client.user.username}`, iconURL: `${client.user.avatarURL({ dynamic: true, size: 512 })}` })
                         .setTimestamp()
 
