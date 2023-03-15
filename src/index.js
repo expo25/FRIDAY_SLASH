@@ -71,13 +71,13 @@ client.on('guildMemberAdd', async member => {
 
     const inviteEmbed = new MessageEmbed()
         .setColor('DARK_AQUA')
-        .setDescription(`${member.user.tag} just joined the server using the invite ${invite.code} and was invited by ${inviter.tag}. That invite code has now been used ${invite.uses} times since it was originally created.`)
+        .setDescription(`${member.user.tag} just joined the server using the invite code: \`${invite.code}\` and was invited by **${inviter.tag}**. That invite code has now been used **${invite.uses}** times since it was originally created.`)
         .setFooter({ text: `${member.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true, size: 512 }) })
         .setTimestamp()
 
     const sorryEmbed = new MessageEmbed()
         .setColor('RED')
-        .setDescription(`${member.user.tag} just joined the server but I was unable to find the invite link that they used to join. Sorry guys.`)
+        .setDescription(`\`${member.user.tag}\` just joined the server but I was unable to find the invite link that they used to join. Sorry guys.`)
         .setFooter({ text: `${member.tag}`, iconURL: member.user.displayAvatarURL({ dynamic: true, size: 512 }) })
         .setTimestamp()
 

@@ -59,6 +59,8 @@ module.exports = {
                 { name: '</create-channel:1014374267141496912>', value: `Creates a channel in the guild. **NOTE:** You will see the new channel at the very top of the server. Currently working on a way to select which category it can go in. (MUST create at least 1; can create 2)` },
                 { name: '</kick:1008526492214493314>', value: 'Kicks a user from the server.' },
                 { name: '</ban:1008179159585013911>', value: 'Bans a user from the server.' },
+                { name: '<invite-log setup:1085681758793637948>', value: 'Enable the server invite tracker. This will track who was invited to the server, what invite code was used, and who the user was invited by.' },
+                { name: 'invite-log disable:1085681758793637948>', value: 'Disable the server invite tracker.' },
                 { name: '</lock:1008535350467113030>', value: 'Locks a channel preventing @everyone from sending messages.' },
                 { name: '</mute:1008545900492238888>', value: `Gives a server member the 'Muted' role (If it exists). Also sends custom DM to the user letting them know they were muted.` },
                 { name: '</say:1010276796878565447>', value: 'Send a secret message to a specified channel. Hee-hee...' },
