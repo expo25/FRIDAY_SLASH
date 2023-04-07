@@ -1,10 +1,12 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { WebhookClient } = require('discord.js');
+const { PermissionFlagsBits } = require('discord-api-types/v10');
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('impersonate')
         .setDescription('Pose as a user in the server using a webhook.')
+        .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
         .addUserOption(option =>
             option
                 .setName('user')
@@ -22,7 +24,7 @@ module.exports = {
         const member = options.getUser('user');
         const message = options.getString('message');
 
-        await Interaction.channel.createWebhook(member.username,{
+        await Interaction.channel.createWebhook(member.username, {
             name: member.username,
             avatar: member.displayAvatarURL({ dynamic: true, size: 512 })
         }).then((webhook) => {
