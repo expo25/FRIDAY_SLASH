@@ -154,5 +154,32 @@ module.exports = {
             await Interaction.reply({ embeds: [embed], components: [button] })
 
         }
+
+        if (clan == 'BA') {
+
+            const embed = new MessageEmbed()
+                .setColor('#ff634a')
+                .setTitle('BLACK ARTILLERY')
+                .setThumbnail('https://cdn.discordapp.com/emojis/1094333200282681524.webp?size=80&quality=lossless')
+                .setDescription('[#2YU028CUU](https://link.clashofclans.com/en?action=OpenClanProfile&tag=%232YU028CUU)\nRequired Trophies: <:trophy:1094324629423788112> 0\n<a:globe:1094325754998829259> International\n\nLeader: Ξxpo™ Lvl.8\nLevel: 14\nCWL: <:Cry1:1093760853041479801> Crystal League I')
+                .setFooter({ text: `Requested By: ${Interaction.user.username}`, iconURL: `${Interaction.user.avatarURL({ dynamic: true, size: 512 })}` })
+
+            const button = new MessageActionRow()
+                .addComponents([
+                    new MessageButton()
+                        .setStyle('LINK')
+                        .setLabel('Open In-Game')
+                        .setURL('https://link.clashofclans.com/en?action=OpenClanProfile&tag=2YU028CUU')
+                        .setEmoji('♠️'),
+                    new MessageButton()
+                        .setStyle('LINK')
+                        .setLabel('Clash of Stats')
+                        .setURL('https://www.clashofstats.com/clans/royal-tiger-2YU028CUU/summary')
+                        .setEmoji('<a:vr_a_arrowright4:984836830312677377>'),
+                ]);
+
+            await Interaction.reply({ embeds: [embed], components: [button] })
+
+        }
     }
 }
