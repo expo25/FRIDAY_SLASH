@@ -4,20 +4,20 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('guest-apply')
-        .setDescription('Apply to recieve our server guest role.')
-        .addUserOption(option => option.setName('user').setDescription('The user you would like to tag in the message').setRequired(true)),
+        .setDescription('Apply to recieve our server guest role.'),
+        // .addUserOption(option => option.setName('user').setDescription('The user you would like to tag in the message').setRequired(true)),
 
     async execute(Interaction, client) {
 
-        const user = Interaction.options.getUser('user');
+        const user = Interaction.user;
         const interactionUser = await Interaction.guild.members.fetch(Interaction.user.id);
         const userID = Interaction.guild.members.cache.get(user.id);
         const applicantRole = Interaction.guild.roles.cache.find(r => r.id === '980625735205138492'); //\ Switch to match your server role's id.
         const familyFriend = Interaction.guild.roles.cache.find(r => r.id === '1066380373740753016'); //\ Switch to match your server role's id.
 
-        if (user.id != interactionUser) return Interaction.reply({ content: "You are only authorized to give the role to yourself. C'mon now." });
+        // if (user.id != interactionUser) return Interaction.reply({ content: "You are only authorized to give the role to yourself. C'mon now." });
 
-        await userID.roles.add(familyFriend).then(userID.roles.remove(applicantRole));
+        await interactionUser.roles.add(familyFriend).then(interactionUser.roles.remove(applicantRole));
 
         const embed = new MessageEmbed()
             .setColor('#ff634a')
@@ -28,7 +28,7 @@ module.exports = {
 
         await Interaction.reply({ content: `Hi ${user}! `, embeds: [embed] })
 
-
+        //set Timeout, delete the channel after 15 seconds. 
 
     }
 }
