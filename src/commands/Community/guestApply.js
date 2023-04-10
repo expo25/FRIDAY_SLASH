@@ -34,7 +34,7 @@ module.exports = {
             Interaction.channel.delete()
         }, 30 * 1000);
 
-        //set Timeout, delete the channel after 15 seconds. 
+        //set Timeout, delete the channel after n seconds. 
 
     }
 }

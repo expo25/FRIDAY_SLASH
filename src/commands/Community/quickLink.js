@@ -9,7 +9,7 @@ module.exports = {
             option
                 .setName('clan')
                 .setDescription('Select the clan you wish to obtain the link for.')
-                .addChoices({ name: 'Soul Decimtation', value: 'SD' },
+                .addChoices({ name: 'Soul Decimation', value: 'SD' },
                     { name: 'Royal Tiger', value: 'RT' },
                     { name: 'The Rocking Boy', value: 'RB' },
                     { name: 'Spil Knights', value: 'SK' },
