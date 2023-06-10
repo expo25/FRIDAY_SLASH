@@ -10,11 +10,11 @@ module.exports = {
     on: true,
     async execute(message, client) {
 
-        // if (message.mentions.has(client.user.id) && message.author.id === '909535714767671346') {
-        //     message.channel.send('Yes, Boss?')
-        // } else if (message.mentions.has(client.user.id)) {
-        //     message.channel.send('Oops! I am only coded to Expo, sorry.')
-        // }
+        if (message.mentions.has(client.user.id) && message.content.includes('What does F.R.I.D.A.Y stand for?') ) {
+            message.channel.send('Female Replacement Intelligent Digital Assistant Youth.')
+        } else {
+            return;
+        };
 
         if (message.author.bot) return;
 

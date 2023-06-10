@@ -27,7 +27,7 @@ module.exports = {
         const botEmbed = new MessageEmbed()
             .setColor('DARK_RED')
             .setTitle('Total Bots')
-            .setDescription(`**${bots}**`)
+            .setDescription(`**${bots}**\n\nThis does ***not*** include <@938890446099325008> OR <@694348401529061406> `)
             .setFooter({ text: `Brought to you by ${client.user.username}`, iconURL: `${client.user.displayAvatarURL({ dynamic: true, size: 512 })}` })
 
         const endEmbed = new MessageEmbed()
