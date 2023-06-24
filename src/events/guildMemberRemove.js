@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, GuildAuditLogs, GuildAuditLogsEntry } = require('discord.js');
 
 module.exports = {
     name: 'guildMemberRemove',
