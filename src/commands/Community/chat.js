@@ -3,7 +3,7 @@ const { Configuration, OpenAIApi } = require('openai');
 const { MessageEmbed } = require('discord.js');
 
 const configuration = new Configuration({
-    apiKey: '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'
+    apiKey: 'PASTE YOUR OPENAI TOKEN HERE'
 });
 
 const openai = new OpenAIApi(configuration);
