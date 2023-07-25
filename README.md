@@ -7,3 +7,11 @@ This bot uses an older version of the Discord.js library (Version 13.10.2). Full
 * The Client (Bot)'s database token containing a custom MongoDB URL string is required from the Bot's 'Ready' event found in [ready.js](src/events/ready.js).
 
 * These tokens are stored privately in an `.env` file, which is not in this repository due to security concerns. If you would like to use the same method when starting your bot or connecting to a database, please create a `.env.` file and include it in your project with your bot's token that can be gained from the [Discord Developer Portal](https://discord.com/developers/docs/getting-started).
+
+### Built With
+* [Discord.js](https://discordjs.guide/#before-you-begin)
+* [JavaScript](https://www.javascript.com/)
+* [Node.js](https://nodejs.org/en)
+* [Mongoose](https://mongoosejs.com/docs/)
+* [Visual Studio Code](https://code.visualstudio.com/)
+* [Studio 3T](https://studio3t.com/)
